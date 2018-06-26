@@ -38,11 +38,6 @@ public/assets
 .rvmrc
 .rspec
 
-spec/reports
-
-db/*.BACKUP
-
-public/system/
 
 # Ignore application configuration
 /config/application.yml

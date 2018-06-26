@@ -30,6 +30,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'decent_exposure'
 
+# Validate documents
+gem "cpf_cnpj"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -46,6 +49,8 @@ group :development do
   gem 'web-console'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'guard-rspec', require: false
+  gem 'terminal-notifier-guard', require: false
 end
 
 group :test do
@@ -54,6 +59,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'faker'
   gem 'database_cleaner'
+  gem 'simplecov', require: false
+  gem 'simplecov-rcov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
