@@ -10,6 +10,10 @@ RSpec.describe NaturalPerson, type: :model do
     it { expect(build(:legal_person, :invalid)).not_to be_valid }
   end
 
+  describe '#associations' do
+    it { is_expected.to have_many(:accounts) }
+  end
+
   describe '#validations' do
     it { is_expected.to validate_presence_of :cnpj }
   end
