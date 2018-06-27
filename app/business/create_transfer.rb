@@ -18,6 +18,7 @@ class CreateTransfer
     origin = find_by_type('Account', origin_id)
     destination = find_by_type('Account', destination_id)
     check_accounts(origin, destination, ammount)
+    move_accounts(origin, destination, ammount)
     Transfer.new.tap do |object|
       object.origin = origin
       object.destination = destination
@@ -33,6 +34,11 @@ class CreateTransfer
     raise StandardError, 'Conta origem e destino iguais!' if origin.id == destination.id
     check_balance(origin, ammount)
     check_accounts_status(origin, destination)
+  end
+
+  def move_accounts(origin, destination, ammount)
+    origin.debit(ammount)
+    destination.credit(ammount)
   end
 
   def check_balance(origin, ammount)
@@ -53,6 +59,7 @@ class CreateTransfer
   def create_trace(traceable)
     traceable.reload
     CreateHistory.new.create(
+      origin_id: traceable.origin.id,
       destination_id: traceable.destination.id,
       traceable_id: traceable.id,
       traceable_type: traceable.class

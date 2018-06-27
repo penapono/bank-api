@@ -36,4 +36,25 @@ RSpec.describe Account, type: :model do
     it { is_expected.to respond_to(:ancestors?) }
     it { is_expected.to respond_to(:children?) }
   end
+
+  describe 'methods' do
+    let!(:ammount) { 10.0 }
+    let!(:account_to_move) { create(:account, balance: ammount) }
+    let!(:expected_after_debit) { 0 }
+    let!(:expected_after_credit) { 20.0 }
+
+    describe 'debit' do
+      it 'decreases balance' do
+        account_to_move.debit(ammount)
+        expect(account_to_move.balance).to eq(expected_after_debit)
+      end
+    end
+
+    describe 'credit' do
+      it 'increases balance' do
+        account_to_move.credit(ammount)
+        expect(account_to_move.balance).to eq(expected_after_credit)
+      end
+    end
+  end
 end

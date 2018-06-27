@@ -21,4 +21,15 @@ class Account < ApplicationRecord
             :accountable_id,
             :accountable,
             presence: true
+
+  # Methods
+  def debit(ammount)
+    self.balance -= ammount
+    save!
+  end
+
+  def credit(ammount)
+    self.balance += ammount
+    save!
+  end
 end

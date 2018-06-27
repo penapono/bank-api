@@ -18,6 +18,7 @@ class CreateContribution
     account = find_by_type('Account', account_id)
     check_account_eligibility(account) unless account.blank?
     check_ammount(ammount)
+    move_account(account, ammount)
     Contribution.new.tap do |object|
       object.uid = uid
       object.ammount = ammount
@@ -34,6 +35,10 @@ class CreateContribution
     raise StandardError, 'Quantia invalida para aporte!' unless ammount.positive?
   end
 
+  def move_account(account, ammount)
+    account.credit(ammount)
+  end
+
   def find_by_type(type, id)
     return nil if type.blank? || id.blank?
     Object.const_get(type.to_s).where(id: id).first
@@ -42,6 +47,7 @@ class CreateContribution
   def create_trace(traceable)
     traceable.reload
     CreateHistory.new.create(
+      uid: traceable.uid,
       destination_id: traceable.account.id,
       traceable_id: traceable.id,
       traceable_type: traceable.class
