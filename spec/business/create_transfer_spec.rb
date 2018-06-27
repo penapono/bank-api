@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe CreateTransfer do
   describe "#create" do
     subject(:business) { CreateTransfer.new }
-    let(:origin_account) { create(:account) }
-    let(:destination_account) { create(:account) }
+    let!(:origin_account) { create(:account, balance: 1000.0) }
+    let!(:destination_account) { create(:account) }
 
     context '#valid params' do
       let(:params) do
@@ -19,6 +19,10 @@ RSpec.describe CreateTransfer do
 
       it "transfers" do
         expect { business.create(params) }.to change { Transfer.count }.by 1
+      end
+
+      it "leaves trace" do
+        expect { business.create(params) }.to change { History.count }.by 1
       end
     end
 

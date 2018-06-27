@@ -7,6 +7,7 @@ class CreateContribution
         uid, ammount, account_id
       )
     object.save!
+    create_trace(object)
   rescue ActiveRecord::RecordInvalid => error
     raise StandardError, error.message
   end
@@ -16,9 +17,10 @@ class CreateContribution
   def build_object(uid, ammount, account_id)
     account = find_by_type('Account', account_id)
     check_account_eligibility(account) unless account.blank?
+    check_ammount(ammount)
     Contribution.new.tap do |object|
       object.uid = uid
-      object.ammount = check_ammount(ammount)
+      object.ammount = ammount
       object.account = account
     end
   end
@@ -30,7 +32,6 @@ class CreateContribution
 
   def check_ammount(ammount)
     raise StandardError, 'Quantia invalida para aporte!' unless ammount.positive?
-    ammount
   end
 
   def find_by_type(type, id)
@@ -39,8 +40,9 @@ class CreateContribution
   end
 
   def create_trace(traceable)
-    CreateHistory.create(
-      destination_id: traceable.id,
+    traceable.reload
+    CreateHistory.new.create(
+      destination_id: traceable.account.id,
       traceable_id: traceable.id,
       traceable_type: traceable.class
     )

@@ -7,6 +7,7 @@ class CreateAccount
         name, accountable_id, accountable_type, account_id, status, balance
       )
     object.save!
+    create_trace(object)
   rescue ActiveRecord::RecordInvalid => error
     raise StandardError, error.message
   end
@@ -33,7 +34,8 @@ class CreateAccount
   end
 
   def create_trace(traceable)
-    CreateHistory.create(
+    traceable.reload
+    CreateHistory.new.create(
       destination_id: traceable.id,
       traceable_id: traceable.id,
       traceable_type: traceable.class

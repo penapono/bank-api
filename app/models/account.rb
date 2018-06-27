@@ -8,6 +8,7 @@ class Account < ApplicationRecord
   belongs_to :accountable, polymorphic: true
   belongs_to :account, optional: true
   has_many :accounts, dependent: :destroy
+  has_many :histories, as: :traceable, dependent: :destroy
 
   # Enums
   enum status: { active: 0, blocked: 1, canceled: 2 }

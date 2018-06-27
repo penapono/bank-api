@@ -26,6 +26,10 @@ RSpec.describe CreateAccount do
           it "creates" do
             expect { business.create(params) }.to change { Account.count }.by 1
           end
+
+          it "leaves trace" do
+            expect { business.create(params) }.to change { History.count }.by 1
+          end
         end
 
         context 'created by legal_person' do
@@ -42,6 +46,10 @@ RSpec.describe CreateAccount do
 
           it "creates" do
             expect { business.create(params) }.to change { Account.count }.by 1
+          end
+
+          it "leaves trace" do
+            expect { business.create(params) }.to change { History.count }.by 1
           end
         end
       end
@@ -62,6 +70,10 @@ RSpec.describe CreateAccount do
           it "creates" do
             expect { business.create(params) }.to change { Account.count }.by 1
           end
+
+          it "leaves trace" do
+            expect { business.create(params) }.to change { History.count }.by 1
+          end
         end
 
         context 'created by legal_person' do
@@ -78,6 +90,10 @@ RSpec.describe CreateAccount do
 
           it "creates" do
             expect { business.create(params) }.to change { Account.count }.by 1
+          end
+
+          it "leaves trace" do
+            expect { business.create(params) }.to change { History.count }.by 1
           end
         end
       end
