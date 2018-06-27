@@ -3,8 +3,8 @@
 class LegalPerson < ApplicationRecord
   # Associations
   has_many :accounts, as: :accountable, dependent: :destroy
-  
-  # Validations 
+
+  # Validations
   validates :cnpj,
             presence: true
 end

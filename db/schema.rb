@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_233817) do
+ActiveRecord::Schema.define(version: 2018_06_27_012122) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -18,7 +18,20 @@ ActiveRecord::Schema.define(version: 2018_06_26_233817) do
     t.bigint "accountable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id"
+    t.integer "status", default: 0
+    t.index ["account_id"], name: "index_accounts_on_account_id"
     t.index ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable_type_and_accountable_id"
+  end
+
+  create_table "contributions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "uid"
+    t.float "ammount"
+    t.bigint "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_contributions_on_account_id"
+    t.index ["uid"], name: "index_contributions_on_uid"
   end
 
   create_table "legal_people", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -37,4 +50,14 @@ ActiveRecord::Schema.define(version: 2018_06_26_233817) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transfers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "origin_id"
+    t.integer "destination_id"
+    t.float "ammount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "accounts", "accounts"
+  add_foreign_key "contributions", "accounts"
 end

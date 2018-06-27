@@ -1,24 +1,45 @@
-# README
+# Welcome to the Bank API wiki!
+# Basic Setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Preparação do Ambiente de Desenvolvimento
 
-Things you may want to cover:
+``` BASH
+rvm install ruby-2.5.1
+rvm use 2.5.1
+rvm use 2.5.1 gemset create bank_api
+rvm use 2.5.1@bank_api
+gem install bundler
+bundle install
+```
 
-* Ruby version
+## Banco de Dados da Aplicação
 
-* System dependencies
+### database.yml (Arquivo de configuração do Banco de Dados)
 
-* Configuration
+#### Desenvolvimento
 
-* Database creation
+``` YAML
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  host: localhost
+  username: root
+  password:
+  timeout: 5000
 
-* Database initialization
+test:
+  <<: *default
+  database: bank_api_test
 
-* How to run the test suite
+development:
+  <<: *default
+  database: bank_api_development
 
-* Services (job queues, cache servers, search engines, etc.)
+production:
+  <<: *default
+  database: bank_api_production
+```
 
-* Deployment instructions
+### Criar e inicializar banco inicial:
 
-* ...
+`rake db:drop db:create db:migrate`
