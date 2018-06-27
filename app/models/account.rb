@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
+  # Organize accounts like a tree
+  has_ancestry
+
   # Associations
   belongs_to :accountable, polymorphic: true
   belongs_to :account, optional: true

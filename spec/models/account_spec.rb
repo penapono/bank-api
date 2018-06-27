@@ -30,4 +30,10 @@ RSpec.describe Account, type: :model do
     it { is_expected.to validate_presence_of :accountable_id }
     it { is_expected.to validate_presence_of :accountable_type }
   end
+
+  describe '#ancestry' do
+    it { is_expected.to respond_to(:root?) }
+    it { is_expected.to respond_to(:ancestors?) }
+    it { is_expected.to respond_to(:children?) }
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_27_042052) do
+ActiveRecord::Schema.define(version: 2018_06_27_063458) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 2018_06_27_042052) do
     t.bigint "account_id"
     t.integer "status", default: 0
     t.float "balance", default: 0.0
+    t.string "ancestry"
     t.index ["account_id"], name: "index_accounts_on_account_id"
     t.index ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable_type_and_accountable_id"
+    t.index ["ancestry"], name: "index_accounts_on_ancestry"
   end
 
   create_table "contributions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
