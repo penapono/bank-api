@@ -81,6 +81,23 @@ RSpec.describe CreateAccount do
           end
         end
       end
+
+      context 'invalid balance' do
+        let(:params) do
+          {
+            name: "Conta",
+            accountable_id: natural_person.id,
+            accountable_type: natural_person.class,
+            account_id: nil,
+            status: :active,
+            balance: -10.0
+          }
+        end
+
+        it "doesn't create" do
+          expect { business.create(params) }.to change { Account.count }.by 1
+        end
+      end
     end
 
     context '#invalid params' do
@@ -110,23 +127,6 @@ RSpec.describe CreateAccount do
             account_id: nil,
             status: :active,
             balance: 0
-          }
-        end
-
-        it "doesn't create" do
-          expect { business.create(params) }.to raise_error(StandardError)
-        end
-      end
-
-      context 'invalid balance' do
-        let(:params) do
-          {
-            name: "Conta",
-            accountable_id: natural_person.id,
-            accountable_type: natural_person.class,
-            account_id: nil,
-            status: :active,
-            balance: -10.0
           }
         end
 

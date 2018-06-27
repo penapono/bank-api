@@ -7,4 +7,12 @@ class NaturalPerson < ApplicationRecord
   # Validations
   validates :cpf,
             presence: true
+
+  validate :validate_cpf
+
+  private
+
+  def validate_cpf
+    errors.add(:cpf, ' invalido!') unless CPF.valid?(cpf)
+  end
 end

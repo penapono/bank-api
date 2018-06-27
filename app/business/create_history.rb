@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CreateHistory
-  def create(origin_id:, destination_id:, uid:, traceable_id:, traceable_type:)
+  def create(origin_id: nil, destination_id:, uid:, traceable_id:, traceable_type:)
     object =
       History.new(
         origin_id: origin_id, destination_id: destination_id,
