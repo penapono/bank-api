@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-class CreateNaturalPerson
-  def create(cpf:, name:, birth:)
+class CreateContribution
+  def create(uid:, ammount:, account_id:)
     object =
-      NaturalPerson.new(
-        cpf: cpf, name: name, birth: birth
+      Contribution.new(
+        uid: uid, ammount: ammount,
+        account_id: account_id
       )
     object.save!
   rescue ActiveRecord::RecordInvalid => error
