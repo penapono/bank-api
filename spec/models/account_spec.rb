@@ -12,6 +12,7 @@ RSpec.describe Account, type: :model do
 
   describe '#associations' do
     it { is_expected.to belong_to :accountable }
+    it { is_expected.to belong_to :account }
     it { is_expected.to have_many(:accounts).dependent(:destroy) }
   end
 
@@ -25,7 +26,7 @@ RSpec.describe Account, type: :model do
   describe '#validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :status }
-    it { is_expected.to validate_presence_of :created_at }
+    it { is_expected.to validate_presence_of :balance }
     it { is_expected.to validate_presence_of :accountable_id }
     it { is_expected.to validate_presence_of :accountable_type }
   end

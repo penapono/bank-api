@@ -3,6 +3,7 @@
 class Account < ApplicationRecord
   # Associations
   belongs_to :accountable, polymorphic: true
+  belongs_to :account, optional: true
   has_many :accounts, dependent: :destroy
 
   # Enums
@@ -11,7 +12,7 @@ class Account < ApplicationRecord
   # Validations
   validates :name,
             :status,
-            :created_at,
+            :balance,
             :accountable_type,
             :accountable_id,
             :accountable,
