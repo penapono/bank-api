@@ -3,9 +3,10 @@
 FactoryBot.define do
   factory :account do
     sequence(:name) { |n| "CONTA #{n}" }
-    status 0
-    balance 0.0
-    accountable { create(:natural_person) }
+    status :active
+    balance { 0.0 }
+    accountable_id { create(:natural_person).id }
+    accountable_type { NaturalPerson }
     created_at Date.today
 
     trait :invalid do

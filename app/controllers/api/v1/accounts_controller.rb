@@ -17,35 +17,41 @@ module Api
       expose(:accounts) { Account.all }
       expose(:account, attributes: :account_attributes)
 
-      # GET /accounts
+      # GET /legal_people
       def index
-        json_response(accounts)
+        json_response(account)
       end
 
-      # POST /accounts
+      # POST /legal_people
       def create
-        account = Account.create!(account_params)
+        account = CreateAccount.new.create(hash_params)
         json_response(account, :created)
+      rescue StandardError => error
+        json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /accounts/:id
+      # GET /legal_people/:id
       def show
         json_response(account)
       end
 
-      # PUT /accounts/:id
+      # PUT /legal_people/:id
       def update
-        account.update(account_params)
-        head :no_content
+        return head :no_content if account.update(account_params)
+        json_response(account.errors.full_messages, :unprocessable_entity)
       end
 
-      # DELETE /accounts/:id
+      # DELETE /legal_people/:id
       def destroy
         account.destroy
         head :no_content
       end
 
       private
+
+      def hash_params
+        account_params.to_h.symbolize_keys
+      end
 
       def account_params
         params.require(:account).permit(PERMITTED_PARAMS)

@@ -26,6 +26,7 @@ class CreateAccount
   end
 
   def check_balance(balance)
+    balance = balance.to_f
     balance.positive? ? balance : 0
   end
 
