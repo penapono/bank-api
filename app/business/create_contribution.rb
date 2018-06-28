@@ -18,8 +18,7 @@ class CreateContribution
   def build_object(uid, ammount, account_id)
     account = find_by_type('Account', account_id)
     check_account_eligibility(account) unless account.blank?
-    ammount = ammount.to_f
-    check_ammount(ammount)
+    ammount = check_ammount(ammount)
     move_account(account, ammount)
     Contribution.transaction do
       Contribution.new.tap do |object|
@@ -36,7 +35,9 @@ class CreateContribution
   end
 
   def check_ammount(ammount)
+    ammount = ammount.to_f
     raise StandardError, 'Quantia invalida para aporte!' unless ammount.positive?
+    ammount
   end
 
   def move_account(account, ammount)

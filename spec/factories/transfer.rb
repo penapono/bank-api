@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :transfer do
-    origin { build(:account) }
-    destination { build(:account) }
+    origin_id { create(:account).id }
+    destination_id { create(:account).id }
     ammount 1.0
 
     trait :invalid do

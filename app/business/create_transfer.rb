@@ -16,6 +16,7 @@ class CreateTransfer
   private
 
   def build_object(origin_id, destination_id, ammount)
+    ammount = check_ammount(ammount)
     origin = find_by_type('Account', origin_id)
     destination = find_by_type('Account', destination_id)
     check_accounts(origin, destination, ammount)
@@ -30,7 +31,9 @@ class CreateTransfer
   end
 
   def check_ammount(ammount)
+    ammount = ammount.to_f
     raise StandardError, 'Quantia invalida para transferencia!' unless ammount.positive?
+    ammount
   end
 
   def check_accounts(origin, destination, ammount)
@@ -47,7 +50,6 @@ class CreateTransfer
   end
 
   def check_balance(origin, ammount)
-    check_ammount(ammount)
     raise StandardError, 'Saldo insuficiente na conta de origem!' if origin.balance < ammount
   end
 
