@@ -30,21 +30,10 @@ module Api
         json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /accounts/:id
-      def show
-        json_response(account)
-      end
-
       # PUT /accounts/:id
       def update
         return head :no_content if account.update(account_params)
         json_response(account.errors.full_messages, :unprocessable_entity)
-      end
-
-      # DELETE /accounts/:id
-      def destroy
-        account.destroy
-        head :no_content
       end
 
       private

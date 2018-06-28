@@ -27,23 +27,6 @@ module Api
         json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /transfer/:id
-      def show
-        json_response(transfer)
-      end
-
-      # PUT /transfer/:id
-      def update
-        return head :no_content if transfer.update(transfer_params)
-        json_response(transfer.errors.full_messages, :unprocessable_entity)
-      end
-
-      # DELETE /transfer/:id
-      def destroy
-        transfer.destroy
-        head :no_content
-      end
-
       private
 
       def hash_params

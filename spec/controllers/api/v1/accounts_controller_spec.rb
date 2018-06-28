@@ -27,23 +27,6 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
     end
   end
 
-  describe "#show" do
-    before { get :show, params: { id: account.id } }
-
-    it "returns accounts JSON" do
-      body = JSON(response.body)
-      expect(body).to include(
-        "id" => account.id,
-        "name" => account.name,
-        "balance" => account.balance
-      )
-    end
-
-    it "responds ok" do
-      expect(response.status).to eq 200
-    end
-  end
-
   describe "#update" do
     context "with valid attributes" do
       let(:new_balance) { 1234.0 }
@@ -69,20 +52,6 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
       it "responds bad_request" do
         expect(response.status).to eq 422
-      end
-    end
-  end
-
-  describe "#destroy" do
-    context "with valid attributes" do
-      before { delete :destroy, params: { id: account.id } }
-
-      it "deletes account" do
-        expect(LegalPerson.where(id: account.id).first).to eq nil
-      end
-
-      it "responds ok" do
-        expect(response.status).to eq 204
       end
     end
   end

@@ -26,23 +26,6 @@ module Api
         json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /contributions/:id
-      def show
-        json_response(contribution)
-      end
-
-      # PUT /contributions/:id
-      def update
-        return head :no_content if contribution.update(contribution_params)
-        json_response(contribution.errors.full_messages, :unprocessable_entity)
-      end
-
-      # DELETE /contributions/:id
-      def destroy
-        contribution.destroy
-        head :no_content
-      end
-
       private
 
       def hash_params

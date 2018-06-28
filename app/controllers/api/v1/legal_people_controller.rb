@@ -26,17 +26,6 @@ module Api
         json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /legal_people/:id
-      def show
-        json_response(legal_person)
-      end
-
-      # PUT /legal_people/:id
-      def update
-        return head :no_content if legal_person.update(legal_person_params)
-        json_response(legal_person.errors.full_messages, :unprocessable_entity)
-      end
-
       # DELETE /legal_people/:id
       def destroy
         legal_person.destroy

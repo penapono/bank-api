@@ -26,23 +26,6 @@ module Api
         json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /natural_people/:id
-      def show
-        json_response(natural_person)
-      end
-
-      # PUT /natural_people/:id
-      def update
-        return head :no_content if natural_person.update(natural_person_params)
-        json_response(natural_person.errors.full_messages, :unprocessable_entity)
-      end
-
-      # DELETE /natural_people/:id
-      def destroy
-        natural_person.destroy
-        head :no_content
-      end
-
       private
 
       def hash_params
