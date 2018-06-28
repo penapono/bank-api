@@ -18,12 +18,15 @@ class CreateContribution
   def build_object(uid, ammount, account_id)
     account = find_by_type('Account', account_id)
     check_account_eligibility(account) unless account.blank?
+    ammount = ammount.to_f
     check_ammount(ammount)
     move_account(account, ammount)
-    Contribution.new.tap do |object|
-      object.uid = uid
-      object.ammount = ammount
-      object.account = account
+    Contribution.transaction do
+      Contribution.new.tap do |object|
+        object.uid = uid
+        object.ammount = ammount
+        object.account = account
+      end
     end
   end
 
@@ -37,7 +40,9 @@ class CreateContribution
   end
 
   def move_account(account, ammount)
-    account.credit(ammount)
+    Account.transaction do
+      account.credit(ammount)
+    end
   end
 
   def find_by_type(type, id)

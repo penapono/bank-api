@@ -15,7 +15,7 @@ module Api
 
       # GET /natural_people
       def index
-        json_response(natural_person)
+        json_response(natural_people)
       end
 
       # POST /natural_people

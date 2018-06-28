@@ -20,10 +20,12 @@ class CreateTransfer
     destination = find_by_type('Account', destination_id)
     check_accounts(origin, destination, ammount)
     move_accounts(origin, destination, ammount)
-    Transfer.new.tap do |object|
-      object.origin = origin
-      object.destination = destination
-      object.ammount = ammount
+    Transfer.transaction do
+      Transfer.new.tap do |object|
+        object.origin = origin
+        object.destination = destination
+        object.ammount = ammount
+      end
     end
   end
 
@@ -38,8 +40,10 @@ class CreateTransfer
   end
 
   def move_accounts(origin, destination, ammount)
-    origin.debit(ammount)
-    destination.credit(ammount)
+    Account.transaction do
+      origin.debit(ammount)
+      destination.credit(ammount)
+    end
   end
 
   def check_balance(origin, ammount)

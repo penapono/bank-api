@@ -17,11 +17,13 @@ class CreateHistory
   private
 
   def build_object(origin_id, destination_id, uid, traceable_id, traceable_type)
-    History.new.tap do |object|
-      object.origin = find_by_type('Account', origin_id)
-      object.destination = find_by_type('Account', destination_id)
-      object.uid = uid
-      object.traceable = find_by_type(traceable_type, traceable_id)
+    History.transaction do
+      History.new.tap do |object|
+        object.origin = find_by_type('Account', origin_id)
+        object.destination = find_by_type('Account', destination_id)
+        object.uid = uid
+        object.traceable = find_by_type(traceable_type, traceable_id)
+      end
     end
   end
 

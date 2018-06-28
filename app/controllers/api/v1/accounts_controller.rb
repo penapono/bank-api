@@ -17,12 +17,12 @@ module Api
       expose(:accounts) { Account.all }
       expose(:account, attributes: :account_attributes)
 
-      # GET /legal_people
+      # GET /accounts
       def index
-        json_response(account)
+        json_response(accounts)
       end
 
-      # POST /legal_people
+      # POST /accounts
       def create
         account = CreateAccount.new.create(hash_params)
         json_response(account, :created)
@@ -30,18 +30,18 @@ module Api
         json_response(error.message, :unprocessable_entity)
       end
 
-      # GET /legal_people/:id
+      # GET /accounts/:id
       def show
         json_response(account)
       end
 
-      # PUT /legal_people/:id
+      # PUT /accounts/:id
       def update
         return head :no_content if account.update(account_params)
         json_response(account.errors.full_messages, :unprocessable_entity)
       end
 
-      # DELETE /legal_people/:id
+      # DELETE /accounts/:id
       def destroy
         account.destroy
         head :no_content

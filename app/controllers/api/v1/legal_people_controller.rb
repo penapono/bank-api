@@ -15,7 +15,7 @@ module Api
 
       # GET /legal_people
       def index
-        json_response(legal_person)
+        json_response(legal_people)
       end
 
       # POST /legal_people

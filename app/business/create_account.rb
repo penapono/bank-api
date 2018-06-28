@@ -16,12 +16,14 @@ class CreateAccount
   private
 
   def build_object(name, accountable_id, accountable_type, account_id, status, balance)
-    Account.new.tap do |object|
-      object.name = name
-      object.status = status
-      object.balance = check_balance(balance)
-      object.accountable = find_by_type(accountable_type, accountable_id)
-      object.account = find_by_type('Account', account_id)
+    Account.transaction do
+      Account.new.tap do |object|
+        object.name = name
+        object.status = status
+        object.balance = check_balance(balance)
+        object.accountable = find_by_type(accountable_type, accountable_id)
+        object.account = find_by_type('Account', account_id)
+      end
     end
   end
 
