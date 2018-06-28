@@ -43,3 +43,72 @@ production:
 ### Criar e inicializar banco inicial:
 
 `rake db:drop db:create db:migrate`
+
+## Inicialização de servidor:
+
+`rails s`
+
+## Rotas (Api v1)
+
+### Pessoa Física
+
+```
+# Listagem
+# GET /api/v1/natural_people
+
+# Criação
+# POST /api/v1/natural_people
+```
+
+### Pessoa Jurídica
+
+```
+# Listagem
+# GET /api/v1/legal_people
+
+# Criação
+# POST /api/v1/legal_people
+```
+
+### Conta
+
+```
+# Listagem
+# GET /api/v1/accounts
+
+# Criação
+# POST /api/v1/accounts
+
+# Atualização
+# PUT /api/v1/accounts/:id
+
+# Atualização
+# PATCH /api/v1/accounts/:id
+```
+
+### Aporte
+
+```
+# Listagem
+# GET /api/v1/contributions
+
+# Criação
+# POST /api/v1/contributions
+```
+
+### Transferência
+
+```
+# Listagem
+# GET /api/v1/transfers
+
+# Criação
+# POST /api/v1/transfers
+```
+
+### Estorno
+
+```
+# Criação
+# POST /api/v1/rollbacks
+```
