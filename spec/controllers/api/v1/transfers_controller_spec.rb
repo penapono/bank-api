@@ -7,6 +7,18 @@ RSpec.describe Api::V1::TransfersController, type: :controller do
   let(:ammount) { 90.0 }
   let!(:base_transfer) { build(:transfer, origin_id: origin_account.id, ammount: ammount) }
   let!(:transfer) { create(:transfer) }
+  let!(:transfers_list) { create_list(:transfer, 3) }
+
+  describe '#index' do
+    before { get :index }
+
+    context 'transfers' do
+      it 'returns all' do
+        body = JSON(response.body)
+        expect(body).not_to be_empty
+      end
+    end
+  end
 
   describe "#create" do
     let(:attributes) { base_transfer.attributes }

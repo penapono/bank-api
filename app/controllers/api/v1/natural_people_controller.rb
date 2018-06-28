@@ -10,7 +10,7 @@ module Api
       ].freeze
 
       # exposes
-      expose(:natural_people) { NaturalPeople.all }
+      expose(:natural_people) { NaturalPerson.all }
       expose(:natural_person, attributes: :natural_person_attributes)
 
       # GET /natural_people

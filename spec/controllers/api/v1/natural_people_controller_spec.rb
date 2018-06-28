@@ -6,6 +6,18 @@ RSpec.describe Api::V1::NaturalPeopleController, type: :controller do
   let!(:document) { CPF.generate }
   let!(:natural_person) { create(:natural_person, cpf: document) }
   let(:name) { natural_person.name }
+  let!(:natural_people_list) { create_list(:natural_person, 3) }
+
+  describe '#index' do
+    before { get :index }
+
+    context 'natural_people' do
+      it 'returns all' do
+        body = JSON(response.body)
+        expect(body).not_to be_empty
+      end
+    end
+  end
 
   describe "#create" do
     let(:attributes) { attributes_for(:natural_person) }

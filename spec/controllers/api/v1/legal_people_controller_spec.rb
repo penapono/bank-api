@@ -6,6 +6,18 @@ RSpec.describe Api::V1::LegalPeopleController, type: :controller do
   let!(:document) { CNPJ.generate }
   let!(:legal_person) { create(:legal_person, cnpj: document) }
   let(:social_name) { legal_person.social_name }
+  let!(:legal_people_list) { create_list(:legal_person, 3) }
+
+  describe '#index' do
+    before { get :index }
+
+    context 'legal_people' do
+      it 'returns all' do
+        body = JSON(response.body)
+        expect(body).not_to be_empty
+      end
+    end
+  end
 
   describe "#create" do
     let(:attributes) { attributes_for(:legal_person) }

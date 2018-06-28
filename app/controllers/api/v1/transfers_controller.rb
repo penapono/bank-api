@@ -11,12 +11,12 @@ module Api
       ].freeze
 
       # exposes
-      expose(:transfer) { Transfer.all }
+      expose(:transfers) { Transfer.all }
       expose(:transfer, attributes: :transfer_attributes)
 
       # GET /transfer
       def index
-        json_response(transfer)
+        json_response(transfers)
       end
 
       # POST /transfer

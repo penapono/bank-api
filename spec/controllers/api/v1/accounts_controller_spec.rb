@@ -6,6 +6,18 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
   let!(:balance) { 999.9 }
   let!(:account) { create(:account, balance: balance) }
   let(:name) { account.name }
+  let!(:accounts_list) { create_list(:account, 3) }
+
+  describe '#index' do
+    before { get :index }
+
+    context 'accounts' do
+      it 'returns all' do
+        body = JSON(response.body)
+        expect(body).not_to be_empty
+      end
+    end
+  end
 
   describe "#create" do
     let(:attributes) { attributes_for(:account) }

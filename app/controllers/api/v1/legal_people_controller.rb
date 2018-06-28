@@ -10,7 +10,7 @@ module Api
       ].freeze
 
       # exposes
-      expose(:legal_people) { LegalPeople.all }
+      expose(:legal_people) { LegalPerson.all }
       expose(:legal_person, attributes: :legal_person_attributes)
 
       # GET /legal_people
