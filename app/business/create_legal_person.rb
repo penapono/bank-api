@@ -7,6 +7,7 @@ class CreateLegalPerson
         cnpj: cnpj, social_name: social_name, fantasy_name: fantasy_name
       )
     object.save!
+    object
   rescue ActiveRecord::RecordInvalid => error
     raise StandardError, error.message
   end

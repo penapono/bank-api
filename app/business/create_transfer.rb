@@ -8,6 +8,7 @@ class CreateTransfer
       )
     object.save!
     create_trace(object)
+    object
   rescue ActiveRecord::RecordInvalid => error
     raise StandardError, error.message
   end

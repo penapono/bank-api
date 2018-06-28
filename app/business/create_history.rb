@@ -9,6 +9,7 @@ class CreateHistory
         traceable_id, traceable_type
       )
     object.save!
+    object
   rescue ActiveRecord::RecordInvalid => error
     raise StandardError, error.message
   end

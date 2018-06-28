@@ -7,6 +7,7 @@ class CreateNaturalPerson
         cpf: cpf, name: name, birth: birth
       )
     object.save!
+    object
   rescue ActiveRecord::RecordInvalid => error
     raise StandardError, error.message
   end
