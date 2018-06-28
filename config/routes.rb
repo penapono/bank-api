@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :legal_people, only: [:index, :create]
       resources :natural_people, only: [:index, :create]
       resources :transfers, only: [:index, :create]
+      resources :rollbacks, only: :create
     end
   end
 end
